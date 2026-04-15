@@ -40,6 +40,9 @@ interface AdminContextType {
   siteData: SiteData;
   updateHero: (hero: Partial<HeroData>) => void;
   updateProduct: (id: number, data: Partial<Product>) => void;
+  addProduct: (product: Product) => void;
+  deleteProduct: (id: number) => void;
+  importProducts: (products: Product[]) => void;
   updateTestimonial: (id: number, data: Partial<Testimonial>) => void;
   updateCategory: (id: number, data: Partial<Category>) => void;
 }
@@ -130,8 +133,20 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     }));
   }, []);
 
+  const addProduct = useCallback((product: Product) => {
+    setSiteData((d) => ({ ...d, products: [...d.products, product] }));
+  }, []);
+
+  const deleteProduct = useCallback((id: number) => {
+    setSiteData((d) => ({ ...d, products: d.products.filter((p) => p.id !== id) }));
+  }, []);
+
+  const importProducts = useCallback((products: Product[]) => {
+    setSiteData((d) => ({ ...d, products }));
+  }, []);
+
   return (
-    <AdminContext.Provider value={{ isAdmin, isEditing, login, logout, toggleEditing, siteData, updateHero, updateProduct, updateTestimonial, updateCategory }}>
+    <AdminContext.Provider value={{ isAdmin, isEditing, login, logout, toggleEditing, siteData, updateHero, updateProduct, addProduct, deleteProduct, importProducts, updateTestimonial, updateCategory }}>
       {children}
     </AdminContext.Provider>
   );
