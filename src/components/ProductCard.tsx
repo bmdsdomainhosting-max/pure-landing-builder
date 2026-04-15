@@ -1,13 +1,16 @@
-import { Eye, ShoppingCart } from "lucide-react";
+import { Eye } from "lucide-react";
 import type { Product } from "@/data/products";
+import { useAdmin } from "@/contexts/AdminContext";
+import EditableText from "./EditableText";
+import EditableImage from "./EditableImage";
 
 interface Props {
   product: Product;
-  onAddToCart: (p: Product) => void;
   onQuickView: (p: Product) => void;
 }
 
-const ProductCard = ({ product, onAddToCart, onQuickView }: Props) => {
+const ProductCard = ({ product, onQuickView }: Props) => {
+  const { isEditing, updateProduct } = useAdmin();
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -15,10 +18,10 @@ const ProductCard = ({ product, onAddToCart, onQuickView }: Props) => {
   return (
     <div className="group bg-card rounded-2xl border border-border overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative aspect-square overflow-hidden bg-muted">
-        <img
+        <EditableImage
           src={product.image}
           alt={product.name}
-          loading="lazy"
+          onSave={(url) => updateProduct(product.id, { image: url })}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {product.badge && (
@@ -31,28 +34,34 @@ const ProductCard = ({ product, onAddToCart, onQuickView }: Props) => {
             Save {discount}%
           </span>
         )}
-        <button
-          onClick={() => onQuickView(product)}
-          className="absolute bottom-3 right-3 bg-card/90 backdrop-blur-sm p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
-        >
-          <Eye size={18} />
-        </button>
+        {!isEditing && (
+          <button
+            onClick={() => onQuickView(product)}
+            className="absolute bottom-3 right-3 bg-card/90 backdrop-blur-sm p-2.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+          >
+            <Eye size={18} />
+          </button>
+        )}
       </div>
       <div className="p-4 space-y-2">
-        <p className="text-xs font-medium text-primary uppercase tracking-wider">{product.category}</p>
-        <h3 className="font-display font-semibold text-foreground leading-snug line-clamp-1">{product.name}</h3>
-        <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+        <EditableText value={product.category} onSave={(v) => updateProduct(product.id, { category: v })} className="text-xs font-medium text-primary uppercase tracking-wider" as="p" />
+        <EditableText value={product.name} onSave={(v) => updateProduct(product.id, { name: v })} className="font-display font-semibold text-foreground leading-snug line-clamp-1" as="h3" />
+        <EditableText value={product.description} onSave={(v) => updateProduct(product.id, { description: v })} className="text-sm text-muted-foreground line-clamp-2" as="p" multiline />
         <div className="flex items-center gap-2 pt-1">
-          <span className="text-lg font-bold text-foreground">৳{product.price}</span>
-          {product.originalPrice && (
+          {isEditing ? (
+            <EditableText value={`${product.price}`} onSave={(v) => updateProduct(product.id, { price: Number(v) || product.price })} className="text-lg font-bold text-foreground" />
+          ) : (
+            <span className="text-lg font-bold text-foreground">৳{product.price}</span>
+          )}
+          {product.originalPrice && !isEditing && (
             <span className="text-sm text-muted-foreground line-through">৳{product.originalPrice}</span>
           )}
         </div>
         <button
-          onClick={() => onAddToCart(product)}
-          className="w-full mt-2 flex items-center justify-center gap-2 bg-accent text-accent-foreground font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all"
+          onClick={() => onQuickView(product)}
+          className="w-full mt-2 flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all"
         >
-          <ShoppingCart size={16} /> Add to Cart
+          <Eye size={16} /> View Details
         </button>
       </div>
     </div>
