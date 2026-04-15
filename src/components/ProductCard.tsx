@@ -3,17 +3,28 @@ import type { Product } from "@/data/products";
 import { useAdmin } from "@/contexts/AdminContext";
 import EditableText from "./EditableText";
 import EditableImage from "./EditableImage";
+import { getWhatsAppLink } from "@/lib/whatsapp";
 
 interface Props {
   product: Product;
   onQuickView: (p: Product) => void;
 }
 
+const FOMO_TAGS: Record<string, string> = {
+  "Best Seller": "🔥 Selling Fast",
+  "Popular": "⚡ Most Popular",
+  "Premium": "✔ Premium Pick",
+  "New": "🆕 Just Arrived",
+  "Value Pack": "⏳ Limited Offer",
+  "Organic": "🌿 100% Organic",
+};
+
 const ProductCard = ({ product, onQuickView }: Props) => {
   const { isEditing, updateProduct } = useAdmin();
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+  const fomoTag = product.badge ? FOMO_TAGS[product.badge] : null;
 
   return (
     <div className="group bg-card rounded-2xl border border-border overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -57,12 +68,25 @@ const ProductCard = ({ product, onQuickView }: Props) => {
             <span className="text-sm text-muted-foreground line-through">৳{product.originalPrice}</span>
           )}
         </div>
-        <button
-          onClick={() => onQuickView(product)}
-          className="w-full mt-2 flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all"
-        >
-          <Eye size={16} /> View Details
-        </button>
+        {fomoTag && (
+          <p className="text-xs font-semibold text-accent">{fomoTag}</p>
+        )}
+        <div className="flex gap-2 pt-1">
+          <button
+            onClick={() => onQuickView(product)}
+            className="flex-1 flex items-center justify-center gap-2 bg-muted text-foreground font-semibold py-2.5 rounded-xl hover:bg-muted/80 transition-all text-sm"
+          >
+            <Eye size={15} /> Details
+          </button>
+          <a
+            href={getWhatsAppLink(product.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all text-sm"
+          >
+            Order Now
+          </a>
+        </div>
       </div>
     </div>
   );
