@@ -8,8 +8,9 @@ interface Props {
 
 const BestSellers = ({ onQuickView }: Props) => {
   const { siteData } = useAdmin();
-  const bestSellers = siteData.products.filter((p) => p.badge === "Best Seller" || p.badge === "Popular" || p.badge === "Premium").slice(0, 6);
-  const items = bestSellers.length < 6 ? [...bestSellers, ...siteData.products.filter((p) => !bestSellers.includes(p)).slice(0, 6 - bestSellers.length)] : bestSellers;
+  const { products, loading } = useProducts();
+ const bestSellers = products.filter((p) => p.badge === "Best Seller" || p.badge === "Popular" || p.badge === "Premium").slice(0, 6);
+  const items = bestSellers.length < 6 ? [...bestSellers, ...products.filter((p) => !bestSellers.includes(p)).slice(0, 6 - bestSellers.length)] : bestSellers;
 
   return (
     <section id="best-sellers" className="py-16 md:py-20">
