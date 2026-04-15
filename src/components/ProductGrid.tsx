@@ -8,7 +8,7 @@ interface Props {
 
 const ProductGrid = ({ onQuickView }: Props) => {
   const { siteData } = useAdmin();
-
+const { products, loading } = useProducts();
   return (
     <section id="shop" className="py-16 md:py-20 bg-surface-green">
       <div className="container mx-auto px-4">
