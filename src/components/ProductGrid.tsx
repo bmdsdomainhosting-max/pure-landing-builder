@@ -1,4 +1,4 @@
-import type { Product } from "@/data/products";
+import type { Product } from "@/supabase/products";
 import { useAdmin } from "@/contexts/AdminContext";
 import ProductCard from "./ProductCard";
 
