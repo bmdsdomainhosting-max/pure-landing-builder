@@ -1,7 +1,7 @@
 import type { Product } from "@/supabase/products";
 import { useAdmin } from "@/contexts/AdminContext";
 import ProductCard from "./ProductCard";
-
+import { useProducts } from "@/hooks/useProducts";
 interface Props {
   onQuickView: (p: Product) => void;
 }
