@@ -1,7 +1,9 @@
-import { ShieldCheck, Leaf, Truck, ThumbsUp } from "lucide-react";
+import { ShieldCheck, Leaf, Truck, ThumbsUp, ImageIcon } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { useAdmin } from "@/contexts/AdminContext";
 import EditableText from "./EditableText";
+import EditableImage from "./EditableImage";
+import { useState } from "react";
 
 const trustBadges = [
   { icon: ShieldCheck, label: "Organic Certified" },
@@ -11,13 +13,25 @@ const trustBadges = [
 ];
 
 const HeroSection = () => {
-  const { siteData, updateHero } = useAdmin();
+  const { siteData, updateHero, isEditing } = useAdmin();
   const { hero } = siteData;
+  const heroImage = hero.image || heroBg;
 
   return (
     <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
-      <img src={heroBg} alt="Premium organic products by SIDRA" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
+      <img src={heroImage} alt="Premium organic products by SIDRA" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
       <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-secondary/30" />
+
+      {isEditing && (
+        <EditableImage
+          src={heroImage}
+          alt="Hero background"
+          onSave={(url) => updateHero({ image: url })}
+          className="absolute inset-0 w-full h-full object-cover opacity-0"
+          buttonMode
+        />
+      )}
+
       <div className="container mx-auto relative z-10 px-4 py-20">
         <div className="max-w-2xl space-y-6 animate-fade-in">
           <EditableText value={hero.badge} onSave={(v) => updateHero({ badge: v })} className="inline-block bg-primary/20 text-primary-foreground border border-primary/40 px-4 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm" />
