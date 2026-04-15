@@ -7,9 +7,10 @@ interface Props {
   alt: string;
   onSave: (url: string) => void;
   className?: string;
+  buttonMode?: boolean;
 }
 
-const EditableImage = ({ src, alt, onSave, className = "" }: Props) => {
+const EditableImage = ({ src, alt, onSave, className = "", buttonMode = false }: Props) => {
   const { isEditing } = useAdmin();
   const [showModal, setShowModal] = useState(false);
   const [url, setUrl] = useState(src);

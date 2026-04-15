@@ -7,6 +7,7 @@ interface HeroData {
   subheadline: string;
   ctaText: string;
   secondaryCta: string;
+  image?: string;
 }
 
 interface Testimonial {
