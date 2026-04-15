@@ -12,19 +12,19 @@ import ProductModal from "@/components/ProductModal";
 import AdminLogin from "@/components/AdminLogin";
 import AdminBar from "@/components/AdminBar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import type { Product } from "@/data/products";
+import { useProducts, type Product } from "@/hooks/useProducts";
 
 const Index = () => {
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [showLogin, setShowLogin] = useState(false);
-
+const { products, loading } = useProducts();
   return (
     <div className="min-h-screen">
       <Navbar onAdminClick={() => setShowLogin(true)} />
       <HeroSection />
       <CategoriesSection />
-      <BestSellers onQuickView={setModalProduct} />
-      <ProductGrid onQuickView={setModalProduct} />
+      <BestSellers products={products} onQuickView={setModalProduct} />
+<ProductGrid products={products} onQuickView={setModalProduct} />
       <WhyChoose />
       <Testimonials />
       <OrderCTA />
