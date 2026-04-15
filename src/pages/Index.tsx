@@ -6,10 +6,12 @@ import BestSellers from "@/components/BestSellers";
 import ProductGrid from "@/components/ProductGrid";
 import WhyChoose from "@/components/WhyChoose";
 import Testimonials from "@/components/Testimonials";
+import OrderCTA from "@/components/OrderCTA";
 import Footer from "@/components/Footer";
 import ProductModal from "@/components/ProductModal";
 import AdminLogin from "@/components/AdminLogin";
 import AdminBar from "@/components/AdminBar";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import type { Product } from "@/data/products";
 
 const Index = () => {
@@ -25,12 +27,14 @@ const Index = () => {
       <ProductGrid onQuickView={setModalProduct} />
       <WhyChoose />
       <Testimonials />
+      <OrderCTA />
       <Footer />
       {modalProduct && (
         <ProductModal product={modalProduct} onClose={() => setModalProduct(null)} />
       )}
       {showLogin && <AdminLogin onClose={() => setShowLogin(false)} />}
       <AdminBar />
+      <WhatsAppFloat />
     </div>
   );
 };
