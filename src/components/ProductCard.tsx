@@ -28,7 +28,7 @@ const ProductCard = ({ product, onQuickView }: Props) => {
 
   return (
     <div className="group bg-card rounded-2xl border border-border overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div className="relative aspect-square overflow-hidden bg-muted flex-shrink-0">
         <EditableImage
           src={product.image}
           alt={product.name}
