@@ -17,9 +17,9 @@ const { products, loading } = useProducts();
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Our Pure Collection</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {siteData.products.map((p) => (
-            <ProductCard key={p.id} product={p} onQuickView={onQuickView} />
-          ))}
+{products.map((p) => (
+                      <ProductCard key={p.id} product={p} onQuickView={onQuickView} />
+                    ))}
         </div>
       </div>
     </section>
