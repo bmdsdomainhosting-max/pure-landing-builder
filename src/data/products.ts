@@ -34,7 +34,17 @@ export const products: Product[] = [
   { id: 10, name: "Chia Seeds Organic", description: "Nutrient-dense chia seeds. Rich in omega-3, fiber & protein.", price: 380, image: "https://images.unsplash.com/photo-1511690743698-d9d18f7e20f1?w=400&h=400&fit=crop", category: "Superfoods", inStock: true },
   { id: 11, name: "Pure Desi Ghee", description: "Traditional slow-cooked desi ghee from grass-fed cow milk. Rich aroma.", price: 720, originalPrice: 850, image: "https://images.unsplash.com/photo-1631209121750-a9f656d1cae5?w=400&h=400&fit=crop", category: "Ghee", badge: "Organic", inStock: true },
   { id: 12, name: "Moringa Leaf Powder", description: "Superfood moringa powder. Packed with vitamins, minerals & antioxidants.", price: 320, image: "https://images.unsplash.com/photo-1622467827417-bbe6014d3ea4?w=400&h=400&fit=crop", category: "Wellness", inStock: true },
-];
+{
+  id: 13,
+  name: "সুন্দরবনের প্রাকৃতিক চাকের মধু - 150 gm",
+  description: "সুন্দরবনের মধু হলো সুন্দরবনের বনের ভেতরের বিভিন্ন বুনো ফুল ও গাছ থেকে মৌমাছি সংগ্রহ করা প্রাকৃতিক মধু। এটি খুব বিশুদ্ধ ও পুষ্টিকর হিসেবে পরিচিত। এই মধু শরীরের শক্তি বাড়াতে, রোগ প্রতিরোধ ক্ষমতা উন্নত করতে এবং হজমে সহায়তা করতে পারে। এতে অ্যান্টিঅক্সিডেন্ট থাকায় শরীরের ক্ষতিকর উপাদান কমাতে সাহায্য করে। এছাড়া এটি ঠান্ডা, কাশি ও গলা ব্যথায় কিছুটা আরাম দিতে পারে।",
+  price: 280,
+  originalPrice: 300,
+  image: "https://ibb.co/Hf3hcyYN",
+  category: "Honey",
+  badge: "Best Seller",
+  inStock: true
+}];
 
 export const testimonials = [
   { id: 1, name: "Fatima Rahman", photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop", rating: 5, text: "The Sundarbans honey from SIDRA is the purest I've ever tasted. My whole family loves it! Truly organic and authentic." },
