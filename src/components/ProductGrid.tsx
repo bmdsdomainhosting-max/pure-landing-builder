@@ -1,14 +1,12 @@
-import type { Product } from "@/supabase/products";
-import { useAdmin } from "@/contexts/AdminContext";
+import type { Product } from "@/data/products";
 import ProductCard from "./ProductCard";
-import { useProducts } from "@/hooks/useProducts";
+
 interface Props {
+  products: Product[];
   onQuickView: (p: Product) => void;
 }
 
-const ProductGrid = ({ onQuickView }: Props) => {
-  const { siteData } = useAdmin();
-const { products, loading } = useProducts();
+const ProductGrid = ({ products, onQuickView }: Props) => {
   return (
     <section id="shop" className="py-16 md:py-20 bg-surface-green">
       <div className="container mx-auto px-4">
