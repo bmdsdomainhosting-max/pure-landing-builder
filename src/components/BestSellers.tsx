@@ -1,15 +1,13 @@
-import type { Product } from "@/supabase/products";
-import { useAdmin } from "@/contexts/AdminContext";
+import type { Product } from "@/data/products";
 import ProductCard from "./ProductCard";
-import { useProducts } from "@/hooks/useProducts";
+
 interface Props {
+  products: Product[];
   onQuickView: (p: Product) => void;
 }
 
-const BestSellers = ({ onQuickView }: Props) => {
-  const { siteData } = useAdmin();
-  const { products, loading } = useProducts();
- const bestSellers = products.filter((p) => p.badge === "Best Seller" || p.badge === "Popular" || p.badge === "Premium").slice(0, 6);
+const BestSellers = ({ products, onQuickView }: Props) => {
+  const bestSellers = products.filter((p) => p.badge === "Best Seller" || p.badge === "Popular" || p.badge === "Premium").slice(0, 6);
   const items = bestSellers.length < 6 ? [...bestSellers, ...products.filter((p) => !bestSellers.includes(p)).slice(0, 6 - bestSellers.length)] : bestSellers;
 
   return (
