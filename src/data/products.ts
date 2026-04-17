@@ -40,7 +40,7 @@ export const products: Product[] = [
     description: "সুন্দরবনের মধু হলো সুন্দরবনের বনের ভেতরের বিভিন্ন বুনো ফুল ও গাছ থেকে মৌমাছি সংগ্রহ করা প্রাকৃতিক মধু। এটি খুব বিশুদ্ধ ও পুষ্টিকর হিসেবে পরিচিত।",
     price: 280,
     originalPrice: 300,
-    image: "https://i.ibb.co/Hf3hcyYN/honey.jpg",
+    image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=400&fit=crop",
     category: "Honey",
     badge: "Best Seller",
     inStock: true,

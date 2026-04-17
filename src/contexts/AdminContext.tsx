@@ -48,7 +48,7 @@ interface AdminContextType {
 }
 
 const ADMIN_PASSWORD = "sidra2026";
-const STORAGE_KEY = "sidra-site-data";
+const STORAGE_KEY = "sidra-site-data-v2";
 const AUTH_KEY = "sidra-admin";
 
 const defaultHero: HeroData = {
@@ -69,8 +69,17 @@ const defaultSiteData: SiteData = {
 function loadData(): SiteData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<SiteData>;
+      return {
+        hero: { ...defaultHero, ...(parsed.hero || {}) },
+        products: parsed.products?.length ? parsed.products : defaultProducts,
+        testimonials: parsed.testimonials?.length ? parsed.testimonials : defaultTestimonials,
+        categories: parsed.categories?.length ? parsed.categories : defaultCategories,
+      };
+    }
   } catch {}
+  try { localStorage.removeItem("sidra-site-data"); } catch {}
   return defaultSiteData;
 }
 
